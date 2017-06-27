@@ -1,6 +1,7 @@
 package br.com.fabricadeprogramador.percistencia.jdbc;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.mysql.jdbc.PreparedStatement;
@@ -67,6 +68,48 @@ public class UsuarioDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		 }
+	}
+	
+	public void salvar(Usuario usuario){
+		if(usuario.getIdUsuario() != 0){
+			alterar(usuario);
+			
+		}else{
+			cadastra(usuario);
+		}
+	}
+	/**
+	 * Busca de um registro no banco de dados pelo número do id do usuário
+	 * @param id E um inteiro que representa o número do id do usuário a ser buscado
+	 * @return Um objeto usuário quando encontrado ou null quando não encontrado
+	 */
+	
+	public Usuario buscaPorId(Integer id){
+		
+		String sql = "select *from usuario where id_usuario=?";
+		
+		try(PreparedStatement preparador = (PreparedStatement) con.prepareStatement(sql)){
+			
+			preparador.setInt(1,id);
+			ResultSet resultado =  preparador.executeQuery();
+			// posicionando o cursor no primeiro registro
+			if(resultado.next()){
+				Usuario usuario = new Usuario();
+				usuario.setIdUsuario(resultado.getInt("id_usuario"));
+				usuario.setNome(resultado.getString("nome"));
+				usuario.setLogin(resultado.getString("login"));
+				usuario.setSenha(resultado.getString("senha"));
+				
+				return usuario;
+			}
+			
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		 }
+		
+		return null;
+		
 	}
 
 }

@@ -6,6 +6,7 @@ public class Usuario {
 	private String nome;
 	private String login;
 	private String senha;
+	
 	public int getIdUsuario() {
 		return idUsuario;
 	}
@@ -29,5 +30,10 @@ public class Usuario {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", nome=" + nome + ", login=" + login + ", senha=" + senha + "]";
 	}	
 }

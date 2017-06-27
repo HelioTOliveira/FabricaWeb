@@ -10,7 +10,9 @@ public class TestUsuarioDAO {
 	
 		//testeCadastrar();
 		//testeAlterar();
-		testeExcluir();
+		//testeExcluir();
+		//testeSalvar();
+		testeBuscarPorId();
 	}
 	
 	private static void testeExcluir(){
@@ -52,6 +54,27 @@ public class TestUsuarioDAO {
 		usuDAO.cadastra(usuario);
 		
 		System.out.println("Cadastrado com Sucesso!!!");
+	}
+	public static void testeSalvar(){
+		
+		Usuario usuario = new Usuario();
+		//usuario.setIdUsuario(2);
+		usuario.setNome("Helio");
+		usuario.setLogin("hlt");
+		usuario.setSenha("4567");
+		
+		UsuarioDAO usuDAO = new UsuarioDAO();
+		usuDAO.salvar(usuario);
+		
+		System.out.println("Salvo com Sucesso");
+	}
+	
+	public static void testeBuscarPorId(){
+		
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		Usuario usuario = usuarioDAO.buscaPorId(2);
+		
+		System.out.println(usuario);
 	}
 
 }

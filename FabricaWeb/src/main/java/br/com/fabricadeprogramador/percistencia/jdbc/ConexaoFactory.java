@@ -11,7 +11,7 @@ public class ConexaoFactory {
 		// TODO Auto-generated method stub
 		
 		try {
-			return DriverManager.getConnection("jdbc:mysql://localhost/fabricaweb", "root", "root1234");
+			return DriverManager.getConnection("jdbc:mysql://localhost/fabricaweb?useSSL=false", "root", "root1234");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw new RuntimeException(e);
