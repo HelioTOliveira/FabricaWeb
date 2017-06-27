@@ -1,5 +1,7 @@
 package br.com.fabricadeprogramador;
 
+import java.util.List;
+
 import br.com.fabricadeprogramador.percistencia.entidade.Usuario;
 import br.com.fabricadeprogramador.percistencia.jdbc.UsuarioDAO;
 
@@ -12,7 +14,8 @@ public class TestUsuarioDAO {
 		//testeAlterar();
 		//testeExcluir();
 		//testeSalvar();
-		testeBuscarPorId();
+		//testeBuscarPorId();
+		testeBuscarTodos();
 	}
 	
 	private static void testeExcluir(){
@@ -75,6 +78,15 @@ public class TestUsuarioDAO {
 		Usuario usuario = usuarioDAO.buscaPorId(2);
 		
 		System.out.println(usuario);
+	}
+	
+	public static void testeBuscarTodos(){
+			
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			List<Usuario> listaUsuario = usuarioDAO.buscarTodos();
+			
+			for(Usuario usuario : listaUsuario)
+			System.out.println(usuario);
 	}
 
 }

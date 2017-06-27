@@ -3,6 +3,8 @@ package br.com.fabricadeprogramador.percistencia.jdbc;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -110,6 +112,34 @@ public class UsuarioDAO {
 		
 		return null;
 		
+	}
+	/**
+	 * Realiza a busca de todos registro da tabela usuário
+	 * @return uma lista de objetos Usuarios contendo 0 elementos quando não tiver registro ou n elementos
+	 * quando tiver resultado
+	 */
+	public List<Usuario> buscarTodos(){
+		
+		String sql = "Select *from usuario";
+		List<Usuario> listaUsuario = new ArrayList<Usuario>();
+		try (PreparedStatement preparador = (PreparedStatement) con.prepareStatement(sql)){
+			
+			ResultSet resultado = preparador.executeQuery();
+			
+			while(resultado.next()){
+				Usuario usuairo = new Usuario();
+				usuairo.setIdUsuario(resultado.getInt("id_usuario"));
+				usuairo.setNome(resultado.getString("nome"));
+				usuairo.setLogin(resultado.getString("login"));
+				usuairo.setSenha(resultado.getString("senha"));
+				
+				listaUsuario.add(usuairo);
+			}
+			return listaUsuario;
+		}catch(SQLException e){
+				e.printStackTrace();
+		 }		
+		return null;
 	}
 
 }
