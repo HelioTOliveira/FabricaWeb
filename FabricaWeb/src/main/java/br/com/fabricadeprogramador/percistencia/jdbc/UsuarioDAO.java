@@ -141,5 +141,35 @@ public class UsuarioDAO {
 		 }		
 		return null;
 	}
+	
+	public Usuario autenticar(Usuario usuConsulta){
+		
+		String sql ="Select *from usuario where login=? and senha=?";
+		
+		try (PreparedStatement preparador = (PreparedStatement) con.prepareStatement(sql)){
+			
+			preparador.setString(1, usuConsulta.getLogin());
+			preparador.setString(2, usuConsulta.getSenha());
+			
+			ResultSet resultado = preparador.executeQuery();
+			
+			if(resultado.next()) {
+				Usuario usuario = new Usuario();
+				
+				usuario.setIdUsuario(resultado.getInt("id_usuario"));
+				usuario.setNome(resultado.getString("nome"));
+				usuario.setLogin(resultado.getString("login"));
+				usuario.setSenha(resultado.getString("senha"));
+				
+				return usuario;
+			}
+			
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}		
+		
+		return null;
+	}
 
 }
