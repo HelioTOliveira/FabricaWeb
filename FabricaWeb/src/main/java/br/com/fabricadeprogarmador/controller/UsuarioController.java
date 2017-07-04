@@ -3,6 +3,7 @@ package br.com.fabricadeprogarmador.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,12 +34,34 @@ public class UsuarioController extends HttpServlet {
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			usuarioDAO.excluir(usu);
 			
-			resp.getWriter().println("Excluido com Sucesso");
+			resp.sendRedirect("UsuarioController?acao=lis");
 		}else if(acao.equals("lis")){
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			List<Usuario> lista = usuarioDAO.buscarTodos();
-			resp.getWriter().println(lista);
-		}
+			req.setAttribute("lista", lista);
+			RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/listausu.jsp");
+			dispatcher.forward(req, resp);
+		}else if(acao.equals("alt")){
+			
+			String id = req.getParameter("id");
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			Usuario usuario = usuarioDAO.buscaPorId(Integer.parseInt(id));
+			req.setAttribute("usu", usuario);
+			RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/formusuario.jsp");
+			dispatcher.forward(req, resp);			
+			}else if(acao.equals("cad")){
+				
+				Usuario usuario = new Usuario();
+				usuario.setIdUsuario(0);
+				usuario.setNome("");
+				usuario.setLogin("");
+				usuario.setSenha("");
+				
+				
+				req.setAttribute("usu", usuario);
+				RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/formusuario.jsp");
+				dispatcher.forward(req, resp);			
+			}
 			
 	}
 	
