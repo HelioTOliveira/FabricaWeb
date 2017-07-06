@@ -17,7 +17,7 @@ public class UsuarioDAO {
 		// TODO Auto-generated method stub
 		
 		String sql="insert into usuario(nome, login, senha)"+
-		"values(?, ?, ?)";
+		"values(?, ?, md5(?))";
 		
 		try (PreparedStatement preparador =  (PreparedStatement) con.prepareStatement(sql)){
 			preparador.setString(1, usuario.getNome());
@@ -36,7 +36,7 @@ public class UsuarioDAO {
 	public void alterar(Usuario usuario) {
 		// TODO Auto-generated method stub
 		
-		String sql="update usuario set nome=?, login=?, senha=? where id_usuario=?";
+		String sql="update usuario set nome=?, login=?, senha= md5(?) where id_usuario=?";
 				
 		try (PreparedStatement preparador =  (PreparedStatement) con.prepareStatement(sql)){
 			preparador.setString(1, usuario.getNome());
@@ -144,7 +144,7 @@ public class UsuarioDAO {
 	
 	public Usuario autenticar(Usuario usuConsulta){
 		
-		String sql ="Select *from usuario where login=? and senha=?";
+		String sql ="Select *from usuario where login=? and senha= md5(?)";
 		
 		try (PreparedStatement preparador = (PreparedStatement) con.prepareStatement(sql)){
 			
