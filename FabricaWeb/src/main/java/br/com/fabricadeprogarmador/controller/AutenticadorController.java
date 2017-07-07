@@ -22,6 +22,20 @@ public class AutenticadorController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		HttpSession sessao = req.getSession(false);
+		
+		if(sessao != null){
+			
+			sessao.invalidate();
+		}
+		
+		resp.sendRedirect("login.html");
+	}
+	
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
@@ -38,7 +52,7 @@ public class AutenticadorController extends HttpServlet{
 		if(usuAutenticar != null){
 			
 			HttpSession sessao = req.getSession();
-			sessao.setAttribute("usuAtenticado", usuAutenticar);
+			sessao.setAttribute("usuAutenticado", usuAutenticar);
 			
 			sessao.setMaxInactiveInterval(60*5);
 			

@@ -13,9 +13,14 @@
 					location.href="UsuarioController?acao=exc&id="+id;
 				}
 			}
+			
+			function novo(){
+				location.href='UsuarioController?acao=cad';
+			}
 		</script>
 	</head>
 	<body>
+		<%@include file="menu.jsp" %>
 		<%
 			List <Usuario> lista= (List<Usuario>)request.getAttribute("lista");
 		%>
@@ -34,5 +39,6 @@
 			</tr>
 			<%} %>
 		</table>
+		<input type="button" value="novo" onclick="javascript:novo()">
 	</body>
 </html>
